@@ -50,8 +50,8 @@ class _HomePageState extends State<HomePage> {
   Future<void> getGroupNameData() async {
     final prefs = await SharedPreferences.getInstance();
     String groupName = await prefs.getString('groupNameData') ?? '';
-    inspect(groupName);
     setState(() => MyApp.groupName = groupName);
+    getSchedule();
   }
 
   Future<void> getGroups() async {
@@ -85,26 +85,42 @@ class _HomePageState extends State<HomePage> {
       appBar: HomeAppBar(getSchedule, changeDayOfTheWeek),
       body: Container(
         color: Color(0xFFEEEEEE),
-        child: !MyApp.isLoadingSchedule
-            ? PageView(
-                controller: _homePageViewController,
-                onPageChanged: (newIndex) {
-                  setState(() {
-                    HomePage.currentPageIndex = newIndex;
-                  });
-                },
-                children: [
-                  LessonsList(),
-                  const Center(child: Text('Cumming Soon')),
-                ],
-                scrollDirection: Axis.horizontal,
-              )
-            : Transform.scale(
-                child: Center(
-                  child: CircularProgressIndicator(),
+        child: Builder(
+          builder: ((context) {
+            if (MyApp.groupName != '') {
+              inspect(MyApp.groupName);
+              if (!MyApp.isLoadingSchedule) {
+                return PageView(
+                  controller: _homePageViewController,
+                  onPageChanged: (newIndex) {
+                    setState(() {
+                      HomePage.currentPageIndex = newIndex;
+                    });
+                  },
+                  children: [
+                    LessonsList(),
+                    const Center(child: Text('Cumming Soon')),
+                  ],
+                  scrollDirection: Axis.horizontal,
+                );
+              } else {
+                return Transform.scale(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  scale: 2,
+                );
+              }
+            } else {
+              return Center(
+                child: Transform.scale(
+                  child: Text('Виберіть групу'),
+                  scale: 2,
                 ),
-                scale: 2,
-              ),
+              );
+            }
+          }),
+        ),
       ),
       bottomNavigationBar: !MyApp.isLoadingSchedule
           ? HomeNavigationBar(_homePageViewController)

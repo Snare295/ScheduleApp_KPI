@@ -19,11 +19,9 @@ class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _HomeAppBarState extends State<HomeAppBar> {
-  static String groupSelected = '';
-
   void changeText(String name) {
     setState(() {
-      groupSelected = name;
+      MyApp.groupName = name;
     });
   }
 
@@ -51,7 +49,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
               : Icon(Icons.filter_2),
         )
       ],
-      title: Text(groupSelected),
+      title: Text(MyApp.groupName),
     );
   }
 }
