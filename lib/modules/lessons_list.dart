@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:first_app/api.dart';
 import 'package:first_app/main.dart';
 import 'package:flutter/material.dart';
@@ -50,20 +52,24 @@ class TileBuilder extends StatelessWidget {
         child: Column(
           children: [
             Center(
-                child: Text(
-              day,
-              style: const TextStyle(
-                fontSize: 25,
+              child: Text(
+                day,
+                style: const TextStyle(
+                  fontSize: 25,
+                ),
               ),
-            )),
+            ),
+            //TODO: cringe layout-clipping, needs reworking
             Card(
-              elevation: 12,
-              margin: EdgeInsets.all(5),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16)),
-              child: Column(
-                children: makeChildren(
-                    MyApp.scheduleList, LessonsList.scheduleIsFirst, index),
+              elevation: 12,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Column(
+                  children: makeChildren(
+                      MyApp.scheduleList, LessonsList.scheduleIsFirst, index),
+                ),
               ),
             )
           ],
@@ -74,6 +80,7 @@ class TileBuilder extends StatelessWidget {
 
   makeChildren(Schedule? schedule, bool scheduleIsFirst, int day) {
     List<Widget> children = [];
+    inspect(schedule);
     scheduleIsFirst
         ? {
             for (Pair pair in schedule!.scheduleFirstWeek[day].pairs)
@@ -89,13 +96,18 @@ class TileBuilder extends StatelessWidget {
 }
 
 const Map pairTag = {
-  'prac': {'color': Color.fromARGB(216, 255, 28, 28), 'name': 'Практична'},
-  'lec': {'color': Color.fromARGB(188, 0, 183, 255), 'name': 'Лекція'},
-  'lab': {'color': Color.fromARGB(220, 255, 145, 0), 'name': 'Лабораторна'},
+  'prac': {'color': Colors.orange, 'name': 'Практична'},
+  'lec': {'color': Colors.lightBlueAccent, 'name': 'Лекція'},
+  'lab': {'color': Colors.green, 'name': 'Лабораторна'},
 };
 
-//TODO: implement icons for time
-const Map timeIcon = {};
+//TODO: change icons for time
+const Map timeIcon = {
+  '8.30': Icons.filter_1,
+  '10.25': Icons.filter_2,
+  '12.20': Icons.filter_3,
+  '14.15': Icons.filter_4,
+};
 
 makeTile(Pair pair, List<Widget> list) {
   if (list.isNotEmpty) {
@@ -107,8 +119,11 @@ makeTile(Pair pair, List<Widget> list) {
     );
   }
 
-  list.add(
-    ListTile(
+  list.add(Container(
+    decoration: BoxDecoration(
+        border: Border(
+            left: BorderSide(color: pairTag[pair.tag]['color'], width: 12))),
+    child: ListTile(
       title: Row(
         children: [
           Expanded(
@@ -117,13 +132,10 @@ makeTile(Pair pair, List<Widget> list) {
         ],
       ),
       subtitle: Text(pair.teacherName),
-      trailing: Card(
-        child: Text(
-          pairTag[pair.tag]['name'],
-        ),
-        color: pairTag[pair.tag]['color'],
+      //TODO:redesigne text and change icon, center column
+      leading: Column(
+        children: [Icon(timeIcon[pair.time]), Text(pair.time)],
       ),
-      //leading: Icon(Icons.abc_rounded),
     ),
-  );
+  ));
 }
