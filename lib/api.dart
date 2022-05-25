@@ -30,15 +30,35 @@ class ApiHandler {
   static Future<Schedule> getLessons() async {
     var uri = Uri.https(ApiConstants.baseUrl, ApiConstants.endpointSchedule,
         {'groupName': MyApp.groupName});
-    print(uri.toString());
 
     final response = await http.get(uri);
 
     Map data = jsonDecode(response.body);
     Map _temp = data['data'];
 
-    return Schedule.fromJson(_temp);
+    Schedule sortedSchedule = sortSchedule(Schedule.fromJson(_temp));
+
+    return sortedSchedule;
   }
+}
+
+Map pairTimeToInt = {
+  '8.30': 1,
+  '10.25': 2,
+  '12.20': 3,
+  '14.15': 4,
+};
+
+sortSchedule(Schedule schedule) {
+  for (ScheduleWeek scheduleWeek in schedule.scheduleFirstWeek) {
+    scheduleWeek.pairs.sort(
+        ((a, b) => pairTimeToInt[a.time].compareTo(pairTimeToInt[b.time])));
+  }
+  for (ScheduleWeek scheduleWeek in schedule.scheduleSecondWeek) {
+    scheduleWeek.pairs.sort(
+        ((a, b) => pairTimeToInt[a.time].compareTo(pairTimeToInt[b.time])));
+  }
+  return schedule;
 }
 
 class Groups {

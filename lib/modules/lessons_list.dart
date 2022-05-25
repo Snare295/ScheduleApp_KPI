@@ -77,24 +77,25 @@ class TileBuilder extends StatelessWidget {
       ),
     );
   }
-
-  makeChildren(Schedule? schedule, bool scheduleIsFirst, int day) {
-    List<Widget> children = [];
-    inspect(schedule);
-    scheduleIsFirst
-        ? {
-            for (Pair pair in schedule!.scheduleFirstWeek[day].pairs)
-              makeTile(pair, children)
-          }
-        : {
-            for (Pair pair in schedule!.scheduleSecondWeek[day].pairs)
-              makeTile(pair, children)
-          };
-
-    return children;
-  }
 }
 
+makeChildren(Schedule? schedule, bool scheduleIsFirst, int day) {
+  List<Widget> children = [];
+  //inspect(schedule);
+  scheduleIsFirst
+      ? {
+          for (Pair pair in schedule!.scheduleFirstWeek[day].pairs)
+            makeTile(pair, children)
+        }
+      : {
+          for (Pair pair in schedule!.scheduleSecondWeek[day].pairs)
+            makeTile(pair, children)
+        };
+
+  return children;
+}
+
+//TODO: change to list or something, better name list with consts
 const Map pairTag = {
   'prac': {'color': Colors.orange, 'name': 'Практична'},
   'lec': {'color': Colors.lightBlueAccent, 'name': 'Лекція'},
