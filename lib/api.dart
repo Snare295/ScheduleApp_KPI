@@ -42,21 +42,16 @@ class ApiHandler {
   }
 }
 
-Map pairTimeToInt = {
-  '8.30': 1,
-  '10.25': 2,
-  '12.20': 3,
-  '14.15': 4,
-};
-
 sortSchedule(Schedule schedule) {
   for (ScheduleWeek scheduleWeek in schedule.scheduleFirstWeek) {
     scheduleWeek.pairs.sort(
-        ((a, b) => pairTimeToInt[a.time].compareTo(pairTimeToInt[b.time])));
+      ((a, b) => double.parse(a.time).compareTo(double.parse(b.time))),
+    );
   }
   for (ScheduleWeek scheduleWeek in schedule.scheduleSecondWeek) {
     scheduleWeek.pairs.sort(
-        ((a, b) => pairTimeToInt[a.time].compareTo(pairTimeToInt[b.time])));
+      ((a, b) => double.parse(a.time).compareTo(double.parse(b.time))),
+    );
   }
   return schedule;
 }
