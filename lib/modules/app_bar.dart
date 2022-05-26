@@ -44,7 +44,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
         ),
         IconButton(
           onPressed: () => {widget.changeWeek()},
-          icon: LessonsList.scheduleIsFirst
+          icon: LessonsList.isSchedulFirst
               ? Icon(Icons.filter_1)
               : Icon(Icons.filter_2),
         )

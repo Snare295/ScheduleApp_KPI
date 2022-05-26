@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'modules/.export.dart';
 
 void main() {
-  ApiHandler.getLessons;
   runApp(const MyApp());
 }
 
@@ -16,6 +15,9 @@ class MyApp extends StatelessWidget {
   static Schedule? scheduleList;
   static bool isLoadingSchedule = true;
   static String groupName = '';
+  static DateTime timeInWeek = DateTime.now();
+  static bool isFirstWeek = true;
+  static bool offsetByWeek = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,18 +42,45 @@ class _HomePageState extends State<HomePage> {
   @override
   initState() {
     super.initState();
+
     getGroupNameData();
+    MyApp.timeInWeek = timeWeek();
     getGroups();
-    if (MyApp.groupName != '') {
-      getSchedule();
+  }
+
+  timeWeek() {
+    const int timeEpochOffset =
+        946857600000; //2000/01/03 first monday in 2000. miliseconds from epoch
+    const int oneWeek = 604800000;
+    bool offsetByWeek = true;
+    int now = DateTime.now().millisecondsSinceEpoch;
+    if (MyApp.offsetByWeek) {
+      now = now - timeEpochOffset;
+    } else {
+      now = now - (timeEpochOffset + oneWeek);
     }
+    now = now % (oneWeek * 2);
+    if (now < oneWeek) {
+      LessonsList.isSchedulFirst = true;
+      MyApp.isFirstWeek = true;
+    } else {
+      LessonsList.isSchedulFirst = false;
+      MyApp.isFirstWeek = false;
+    }
+    now = now % oneWeek;
+    print(now);
+    var timeInWeek = DateTime.fromMillisecondsSinceEpoch(now);
+    print(timeInWeek);
+    return timeInWeek;
   }
 
   Future<void> getGroupNameData() async {
     final prefs = await SharedPreferences.getInstance();
     String groupName = await prefs.getString('groupNameData') ?? '';
     setState(() => MyApp.groupName = groupName);
-    getSchedule();
+    if (MyApp.groupName != '') {
+      getSchedule();
+    }
   }
 
   Future<void> getGroups() async {
@@ -74,7 +103,7 @@ class _HomePageState extends State<HomePage> {
 
   changeDayOfTheWeek() {
     setState(() {
-      LessonsList.scheduleIsFirst = !LessonsList.scheduleIsFirst;
+      LessonsList.isSchedulFirst = !LessonsList.isSchedulFirst;
     });
   }
 
