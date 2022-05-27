@@ -22,7 +22,6 @@ class ApiHandler {
       _temp.add(i);
     }
 
-    List _shit = Groups.groupsFromSnapshot(_temp);
     return Groups.groupsFromSnapshot(_temp);
   }
 

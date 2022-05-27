@@ -14,46 +14,40 @@ const List<String> daysOfWeek = [
 ];
 
 class LessonsList extends StatelessWidget {
-  LessonsList({Key? key}) : super(key: key);
+  const LessonsList({Key? key}) : super(key: key);
   static bool isSchedulFirst = true;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: ListView.builder(
-        itemCount: daysOfWeek.length,
-        itemBuilder: (BuildContext context, int index) {
-          return TileBuilder(
-            index: index,
-            day: daysOfWeek[index],
-          );
-        },
-      ),
+    return ListView.builder(
+      itemCount: daysOfWeek.length,
+      itemBuilder: (BuildContext context, int index) {
+        return TileBuilder(index);
+      },
     );
   }
 }
 
 class TileBuilder extends StatelessWidget {
-  TileBuilder({
-    required this.index,
-    required this.day,
-  });
-  int index;
-  String day;
+  const TileBuilder(
+    this.index, {
+    Key? key,
+  }) : super(key: key);
+  final int index;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: Card(
         elevation: 6,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: Color.fromARGB(255, 88, 141, 255),
+        color: const Color.fromARGB(255, 88, 141, 255),
         child: Column(
           children: [
             Center(
               child: Text(
-                day,
+                daysOfWeek[index],
                 style: const TextStyle(
                   fontSize: 25,
                 ),
@@ -172,8 +166,6 @@ bool isPairNow(int day, String pairTimeString) {
   int minute = int.parse(pairTimeString.split('.')[1]);
   DateTime pairTime =
       DateTime(timeInWeek.year, timeInWeek.month, timeInWeek.day, hour, minute);
-  print(day);
-  print("day" + timeInWeek.day.toString());
   if ((day) != timeInWeek.day) {
     return false;
   }
@@ -185,7 +177,6 @@ bool isPairNow(int day, String pairTimeString) {
           const Duration(hours: 1, minutes: 35),
         ),
       )) {
-    print('YES YES');
     return true;
   } else {
     return false;
