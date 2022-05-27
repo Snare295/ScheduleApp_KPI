@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:first_app/modules/lessons_list.dart';
 import 'package:flutter/material.dart';
 import 'modules/.export.dart';
 import 'globals.dart' as global;
@@ -25,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }
@@ -33,7 +32,7 @@ class MyApp extends StatelessWidget {
 //This page is embeded in main.dart file, for rerouting change main function
 //Don't make this page in separate file. This page is base for app and donesn't need to
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
   static int currentPageIndex = 0;
 
   @override
@@ -54,7 +53,6 @@ class _HomePageState extends State<HomePage> {
     const int timeEpochOffset =
         946857600000; //2000/01/03 first monday in 2000. miliseconds from epoch
     const int oneWeek = 604800000;
-    bool offsetByWeek = true;
     int now = DateTime.now().millisecondsSinceEpoch;
     if (global.offsetByWeek) {
       now = now - timeEpochOffset;
@@ -70,15 +68,13 @@ class _HomePageState extends State<HomePage> {
       MyApp.isFirstWeek = false;
     }
     now = now % oneWeek;
-    print(now);
     var timeInWeek = DateTime.fromMillisecondsSinceEpoch(now);
-    print(timeInWeek);
     return timeInWeek;
   }
 
   Future<void> getGroupNameData() async {
     final prefs = await SharedPreferences.getInstance();
-    String groupName = await prefs.getString('groupNameData') ?? '';
+    String groupName = prefs.getString('groupNameData') ?? '';
     setState(() => MyApp.groupName = groupName);
     if (MyApp.groupName != '') {
       getSchedule();
@@ -115,7 +111,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: HomeAppBar(getSchedule, changeDayOfTheWeek),
       body: Container(
-        color: Color(0xFFEEEEEE),
+        color: const Color(0xFFEEEEEE),
         child: Builder(
           builder: ((context) {
             if (MyApp.groupName != '') {
@@ -136,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                 );
               } else {
                 return Transform.scale(
-                  child: Center(
+                  child: const Center(
                     child: CircularProgressIndicator(),
                   ),
                   scale: 2,
@@ -145,7 +141,7 @@ class _HomePageState extends State<HomePage> {
             } else {
               return Center(
                 child: Transform.scale(
-                  child: Text('Виберіть групу'),
+                  child: const Text('Виберіть групу'),
                   scale: 2,
                 ),
               );
@@ -155,7 +151,7 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: !MyApp.isLoadingSchedule
           ? HomeNavigationBar(_homePageViewController)
-          : SizedBox(),
+          : const SizedBox(),
     );
   }
 }

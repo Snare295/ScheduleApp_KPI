@@ -2,15 +2,15 @@ import 'package:first_app/api.dart';
 import 'package:first_app/main.dart';
 import 'package:first_app/modules/lessons_list.dart';
 import 'package:flutter/material.dart';
-import 'package:first_app/main.dart';
 
 import 'package:first_app/pages/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {
-  HomeAppBar(this.parentState, this.changeWeek, {Key? key}) : super(key: key);
-  final parentState;
-  final changeWeek;
+  const HomeAppBar(this.parentState, this.changeWeek, {Key? key})
+      : super(key: key);
+  final Function parentState;
+  final Function changeWeek;
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
@@ -45,8 +45,8 @@ class _HomeAppBarState extends State<HomeAppBar> {
         IconButton(
           onPressed: () => {widget.changeWeek()},
           icon: LessonsList.isSchedulFirst
-              ? Icon(Icons.filter_1)
-              : Icon(Icons.filter_2),
+              ? const Icon(Icons.filter_1)
+              : const Icon(Icons.filter_2),
         )
       ],
       title: Text(MyApp.groupName),
@@ -55,9 +55,9 @@ class _HomeAppBarState extends State<HomeAppBar> {
 }
 
 class MySearchDelegate extends SearchDelegate {
-  MySearchDelegate(Function this.changeIndex, Function this.update);
-  final changeIndex;
-  final update;
+  MySearchDelegate(this.changeIndex, this.update);
+  final Function changeIndex;
+  final Function update;
 
   List<String> searchList = convertGroupsToString(MyApp.groupsList);
 

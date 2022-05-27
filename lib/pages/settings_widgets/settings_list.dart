@@ -8,20 +8,20 @@ class SettingsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: [
-        const SizedBox(
+      children: const [
+        SizedBox(
           width: double.maxFinite,
           height: 10,
         ),
         TileOffsetByWeek(),
-        const Divider(),
+        Divider(),
       ],
     );
   }
 }
 
 class TileOffsetByWeek extends StatefulWidget {
-  TileOffsetByWeek({Key? key}) : super(key: key);
+  const TileOffsetByWeek({Key? key}) : super(key: key);
 
   @override
   State<TileOffsetByWeek> createState() => _TileOffsetByWeekState();
