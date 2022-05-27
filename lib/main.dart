@@ -3,8 +3,11 @@ import 'dart:developer';
 import 'package:first_app/modules/lessons_list.dart';
 import 'package:flutter/material.dart';
 import 'modules/.export.dart';
+import 'globals.dart' as global;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await global.getDataGlobals();
   runApp(const MyApp());
 }
 
@@ -17,7 +20,6 @@ class MyApp extends StatelessWidget {
   static String groupName = '';
   static DateTime timeInWeek = DateTime.now();
   static bool isFirstWeek = true;
-  static bool offsetByWeek = false;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,7 @@ class _HomePageState extends State<HomePage> {
     const int oneWeek = 604800000;
     bool offsetByWeek = true;
     int now = DateTime.now().millisecondsSinceEpoch;
-    if (MyApp.offsetByWeek) {
+    if (global.offsetByWeek) {
       now = now - timeEpochOffset;
     } else {
       now = now - (timeEpochOffset + oneWeek);
