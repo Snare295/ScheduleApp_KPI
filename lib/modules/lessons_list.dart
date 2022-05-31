@@ -38,17 +38,22 @@ class TileBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      margin: const EdgeInsets.fromLTRB(5, 10, 5, 0),
       child: Card(
         elevation: 6,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        color: const Color.fromARGB(255, 88, 141, 255),
+        color: Theme.of(context).cardColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(20),
+          ),
+        ),
         child: Column(
           children: [
             Center(
               child: Text(
                 daysOfWeek[index],
-                style: const TextStyle(
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onPrimary,
                   fontSize: 25,
                 ),
               ),
@@ -59,6 +64,7 @@ class TileBuilder extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16)),
               elevation: 12,
               child: ClipRRect(
+                clipBehavior: Clip.antiAlias,
                 borderRadius: BorderRadius.circular(16),
                 child: Column(
                   children: makeChildren(
@@ -132,8 +138,12 @@ class PairListTile extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-          border: Border(
-              left: BorderSide(color: pairTag[pair.tag]['color'], width: 12))),
+        border: Border(
+          left: BorderSide(color: pairTag[pair.tag]['color'], width: 12),
+          right: BorderSide(
+              color: Theme.of(context).listTileTheme.tileColor!, width: 17),
+        ),
+      ),
       child: ListTile(
         title: Row(
           children: [
@@ -148,12 +158,12 @@ class PairListTile extends StatelessWidget {
           children: [
             Icon(
               timeIcon[pair.time],
-              color: active ? Colors.lightBlue : null,
+              color: active ? Theme.of(context).colorScheme.primary : null,
             ),
             Text(pair.time)
           ],
         ),
-        textColor: active ? Colors.lightBlue : null,
+        textColor: active ? Theme.of(context).colorScheme.primary : null,
       ),
     );
   }

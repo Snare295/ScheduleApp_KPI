@@ -6,3 +6,4 @@ export './app_bar.dart';
 export './lessons_list.dart';
 export '../api.dart';
 export 'package:shared_preferences/shared_preferences.dart';
+export 'theme.dart';

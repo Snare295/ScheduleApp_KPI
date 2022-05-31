@@ -25,7 +25,6 @@ class _HomeNavigationBarState extends State<HomeNavigationBar> {
           activeIcon: Icon(Icons.card_travel_outlined),
         ),
       ],
-      selectedItemColor: Colors.amber[800],
       currentIndex: HomePage.currentPageIndex,
       onTap: (int index) => widget.pageController.animateToPage(
         index,
