@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:first_app/api.dart';
 import 'package:first_app/main.dart';
+import 'package:first_app/modules/iconsClass/icon_numbers_icons.dart';
 import 'package:flutter/material.dart';
 
 const List<String> daysOfWeek = [
@@ -104,12 +105,12 @@ const Map pairTag = {
 
 //TODO: change icons for time
 const Map timeIcon = {
-  '8.30': Icons.filter_1,
-  '10.25': Icons.filter_2,
-  '12.20': Icons.filter_3,
-  '14.15': Icons.filter_4,
-  '16.10': Icons.filter_5,
-  '18.30': Icons.filter_6,
+  '8.30': IconNumbers.one,
+  '10.25': IconNumbers.two,
+  '12.20': IconNumbers.three,
+  '14.15': IconNumbers.four,
+  '16.10': IconNumbers.five,
+  '18.30': IconNumbers.six,
 };
 
 makeTile(Pair pair, List<Widget> list, int day, bool isThisWeek) {
