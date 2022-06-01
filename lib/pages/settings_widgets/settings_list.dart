@@ -4,17 +4,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsList extends StatelessWidget {
   const SettingsList({Key? key}) : super(key: key);
+  static const double verticalTileMargin = 8;
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: const [
-        SizedBox(
-          width: double.maxFinite,
-          height: 10,
-        ),
         TileOffsetByWeek(),
-        Divider(),
+        Divider(height: 2),
       ],
     );
   }
@@ -31,6 +28,7 @@ class _TileOffsetByWeekState extends State<TileOffsetByWeek> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      minVerticalPadding: SettingsList.verticalTileMargin,
       title: const Text("Змістити на 1 неділю"),
       subtitle: const Text(
           "Включіть якщо пара ,яка зараз відображається, є на неділю вперед"),
