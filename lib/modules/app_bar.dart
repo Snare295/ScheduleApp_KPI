@@ -59,8 +59,6 @@ class MySearchDelegate extends SearchDelegate {
   final Function changeIndex;
   final Function update;
 
-  List<String> searchList = getNamesOfGroup(MyApp.groupsList);
-
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
@@ -81,8 +79,8 @@ class MySearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    List<String> suggestionsList = searchList.where((searchListElement) {
-      final result = searchListElement.toLowerCase();
+    List<Groups> suggestionsList = MyApp.groupsList.where((group) {
+      final result = group.groupName.toLowerCase();
       final input = query.toLowerCase();
 
       return result.contains(input);
@@ -94,12 +92,14 @@ class MySearchDelegate extends SearchDelegate {
         final suggestion = suggestionsList[index];
 
         return ListTile(
-          title: Text(suggestion),
+          title: Text(suggestion.groupName),
           onTap: () {
-            query = suggestion;
-            MyApp.groupName = query;
+            query = suggestion.groupName;
+            MyApp.groupName = suggestion.groupName;
+            changeGroupNameData(suggestion.groupName);
+            MyApp.groupId = suggestion.groupId;
+            changeGroupIdData(suggestion.groupId);
             update();
-            changeGroupNameData(query);
             close(context, changeIndex(query));
           },
         );
@@ -111,17 +111,14 @@ class MySearchDelegate extends SearchDelegate {
   buildResults(BuildContext context) {
     return buildSuggestions(context);
   }
-}
 
-List<String> getNamesOfGroup(List<Groups> groupsList) {
-  List<String> names = [];
-  for (Groups group in groupsList) {
-    names.add(group.groupName.toString());
+  Future<void> changeGroupNameData(String groupName) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('groupNameData', groupName);
   }
-  return names;
-}
 
-Future<void> changeGroupNameData(String groupName) async {
-  final prefs = await SharedPreferences.getInstance();
-  await prefs.setString('groupNameData', groupName);
+  Future<void> changeGroupIdData(String groupId) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('groupIdData', groupId);
+  }
 }

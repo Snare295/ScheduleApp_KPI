@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:first_app/main.dart';
 import 'package:http/http.dart' as http;
@@ -27,10 +28,11 @@ class ApiHandler {
 
   static Future<Schedule> getLessons() async {
     var uri = Uri.https(ApiConstants.baseUrl, ApiConstants.endpointSchedule,
-        {'groupName': MyApp.groupName});
+        {'groupId': MyApp.groupId});
 
     final response = await http.get(uri);
 
+    inspect(response);
     Map data = jsonDecode(response.body);
     Map _temp = data['data'];
 
@@ -56,12 +58,17 @@ sortSchedule(Schedule schedule) {
 
 class Groups {
   final String groupName;
+  final String groupId;
 
-  Groups({required this.groupName});
+  Groups({
+    required this.groupName,
+    required this.groupId,
+  });
 
-  factory Groups.fromJson(dynamic json) {
-    return Groups(groupName: json['name'] as String);
-  }
+  factory Groups.fromJson(dynamic json) => Groups(
+        groupName: json['name'] as String,
+        groupId: json['id'] as String,
+      );
 
   static List<Groups> groupsFromSnapshot(List snapshot) {
     return snapshot.map((data) {
