@@ -12,5 +12,7 @@ The use of flutter allows it to work on any device, so you can get to youre sche
 | MacOS |
 | Linux |
 | Web |
+
+Or check https://snare295.github.io/schedulekpiweb/
 ## How to get working on?
 Just download flutter and follow on: <code>https://docs.flutter.dev/get-started/install</code><br>
