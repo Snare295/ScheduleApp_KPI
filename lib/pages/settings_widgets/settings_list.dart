@@ -4,17 +4,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsList extends StatelessWidget {
   const SettingsList({Key? key}) : super(key: key);
+  static const double verticalTileMargin = 8;
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: const [
-        SizedBox(
-          width: double.maxFinite,
-          height: 10,
-        ),
         TileOffsetByWeek(),
-        Divider(),
+        Divider(height: 2),
+        TileAboutAppInfo(),
+        Divider(height: 2),
       ],
     );
   }
@@ -31,6 +30,7 @@ class _TileOffsetByWeekState extends State<TileOffsetByWeek> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      minVerticalPadding: SettingsList.verticalTileMargin,
       title: const Text("Змістити на 1 неділю"),
       subtitle: const Text(
           "Включіть якщо пара ,яка зараз відображається, є на неділю вперед"),
@@ -48,5 +48,22 @@ class _TileOffsetByWeekState extends State<TileOffsetByWeek> {
     });
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool("offsetByWeekData", global.offsetByWeek);
+  }
+}
+
+class TileAboutAppInfo extends StatelessWidget {
+  const TileAboutAppInfo({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      minVerticalPadding: SettingsList.verticalTileMargin,
+      title: const Text("Інформація про додаток"),
+      leading: const Icon(Icons.info_outlined),
+      //TODO: add more info about app
+      onTap: () => showAboutDialog(
+        context: context,
+      ),
+    );
   }
 }
