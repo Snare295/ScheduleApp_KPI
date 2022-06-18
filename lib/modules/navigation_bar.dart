@@ -15,14 +15,12 @@ class _HomeNavigationBarState extends State<HomeNavigationBar> {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: "Suck",
-          activeIcon: Icon(Icons.add_card_rounded),
+          icon: Icon(Icons.article_outlined),
+          label: "Розклад пар",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.accessible_rounded),
-          label: "Dick",
-          activeIcon: Icon(Icons.card_travel_outlined),
+          icon: Icon(Icons.airline_seat_individual_suite_outlined),
+          label: "Екзамени",
         ),
       ],
       currentIndex: HomePage.currentPageIndex,

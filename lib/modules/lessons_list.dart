@@ -103,7 +103,6 @@ const Map pairTag = {
   'lab': {'color': Colors.green, 'name': 'Лабораторна'},
 };
 
-//TODO: change icons for time
 const Map timeIcon = {
   '8.30': IconNumbers.one,
   '10.25': IconNumbers.two,

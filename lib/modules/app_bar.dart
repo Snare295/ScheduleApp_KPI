@@ -59,7 +59,7 @@ class MySearchDelegate extends SearchDelegate {
   final Function changeIndex;
   final Function update;
 
-  List<String> searchList = convertGroupsToString(MyApp.groupsList);
+  List<String> searchList = getNamesOfGroup(MyApp.groupsList);
 
   @override
   Widget? buildLeading(BuildContext context) {
@@ -113,12 +113,12 @@ class MySearchDelegate extends SearchDelegate {
   }
 }
 
-List<String> convertGroupsToString(List<Groups> groupsList) {
-  List<String> cum = [];
-  for (Groups e in groupsList) {
-    cum.add(e.groupName.toString());
+List<String> getNamesOfGroup(List<Groups> groupsList) {
+  List<String> names = [];
+  for (Groups group in groupsList) {
+    names.add(group.groupName.toString());
   }
-  return cum;
+  return names;
 }
 
 Future<void> changeGroupNameData(String groupName) async {
