@@ -1,16 +1,16 @@
-# first_app
+# Schedule KPI app
+An app for schedule of Igor Sikorsky Kyiv Polytechnic Institute.<br>
+An app have remarkable, no minimalistic desgin wiht bright colors. Also it's uses dynamic color, so if you using this app on Androird 12, MacOS or Windows, app colors change dynamically depending on system settings.<br>
+The use of flutter allows it to work on any device, so you can get to youre schedule almost anytime.
+## To start using it, just download any package from below :)
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+| System | Verified version | Unverified version|
+| --- | --- | --- |
+| Android | 
+| iOS |
+| Windows |
+| MacOS |
+| Linux |
+| Web |
+## How to get working on?
+Just download flutter and follow on: <code>https://docs.flutter.dev/get-started/install</code><br>
