@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'modules/.export.dart';
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
   static Schedule? scheduleList;
   static bool isLoadingSchedule = true;
   static String groupName = '';
+  static String groupId = '';
   static DateTime timeInWeek = DateTime.now();
   static bool isFirstWeek = true;
 
@@ -84,6 +86,7 @@ class _HomePageState extends State<HomePage> {
   initState() {
     super.initState();
     getGroupNameData();
+    getGroupIdData();
     MyApp.timeInWeek = MyApp.timeWeek;
     getGroups();
   }
@@ -92,7 +95,12 @@ class _HomePageState extends State<HomePage> {
     final prefs = await SharedPreferences.getInstance();
     String groupName = prefs.getString('groupNameData') ?? '';
     setState(() => MyApp.groupName = groupName);
-    if (MyApp.groupName != '') {
+  }
+
+  Future<void> getGroupIdData() async {
+    final prefs = await SharedPreferences.getInstance();
+    MyApp.groupId = prefs.getString('groupIdData') ?? '';
+    if (MyApp.groupId != '') {
       getSchedule();
     }
   }
@@ -105,9 +113,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> getSchedule() async {
-    setState(() {
-      MyApp.isLoadingSchedule = true;
-    });
     MyApp.scheduleList = await ApiHandler.getLessons();
     setState(() {
       MyApp.isLoadingSchedule = false;
