@@ -44,6 +44,7 @@ class _HomeAppBarState extends State<HomeAppBar> {
         ),
         IconButton(
           onPressed: () => {widget.changeWeek()},
+          tooltip: 'Змінити неділю',
           icon: LessonsList.isSchedulFirst
               ? const Icon(Icons.filter_1)
               : const Icon(Icons.filter_2),
