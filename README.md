@@ -8,7 +8,7 @@ The use of flutter allows it to work on any device, so you can get to youre sche
 | --- | --- | --- |
 | Android | [![Download apk stable](https://custom-icon-badges.herokuapp.com/badge/-Download-blue?style=for-the-badge&logo=Android&logoColor=green "Download apk")](https://github.com/Snare295/ScheduleApp_KPI/raw/main/package_builds/verified/beta_v0.2.0b.apk) 
 | iOS |
-| Windows |
+| Windows | [![Download windows stable](https://custom-icon-badges.herokuapp.com/badge/-Download-blue?style=for-the-badge&logo=Windows&logoColor=white "Download apk")](https://github.com/Snare295/ScheduleApp_KPI/raw/main/package_builds/verified/ScheduleKPI_inst_v0.2.0b.exe) 
 | MacOS |
 | Linux |
 | Web |
