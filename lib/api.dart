@@ -17,13 +17,13 @@ class ApiHandler {
     final response = await http.get(uri);
 
     Map data = jsonDecode(response.body);
-    List _temp = [];
+    List temp = [];
 
     for (var i in data["data"]) {
-      _temp.add(i);
+      temp.add(i);
     }
 
-    return Groups.groupsFromSnapshot(_temp);
+    return Groups.groupsFromSnapshot(temp);
   }
 
   static Future<Schedule> getLessons() async {
@@ -34,9 +34,9 @@ class ApiHandler {
 
     inspect(response);
     Map data = jsonDecode(response.body);
-    Map _temp = data['data'];
+    Map temp = data['data'];
 
-    Schedule sortedSchedule = sortSchedule(Schedule.fromJson(_temp));
+    Schedule sortedSchedule = sortSchedule(Schedule.fromJson(temp));
 
     return sortedSchedule;
   }
