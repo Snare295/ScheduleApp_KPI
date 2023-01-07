@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:first_app/globals.dart' as global;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class SettingsList extends StatelessWidget {
   const SettingsList({Key? key}) : super(key: key);
@@ -56,14 +58,21 @@ class TileAboutAppInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      minVerticalPadding: SettingsList.verticalTileMargin,
-      title: const Text("Інформація про додаток"),
-      leading: const Icon(Icons.info_outlined),
-      //TODO: add more info about app
-      onTap: () => showAboutDialog(
-        context: context,
-      ),
+    return AboutListTile(
+      icon: Icon(Icons.info),
+      applicationIcon: FlutterLogo(),
+      aboutBoxChildren: [
+        Text('This app created by Snare295 and other contributors'),
+        Center(
+          child: ElevatedButton(
+              onPressed: () async {
+                await launchUrlString(
+                    'https://github.com/Snare295/ScheduleApp_KPI',
+                    mode: LaunchMode.externalApplication);
+              },
+              child: Text('Repository of the app')),
+        ),
+      ],
     );
   }
 }
