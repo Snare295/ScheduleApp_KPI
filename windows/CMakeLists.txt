@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(first_app LANGUAGES CXX)
+project(ScheduleKPI LANGUAGES CXX)
 
-set(BINARY_NAME "first_app")
+set(BINARY_NAME "ScheduleKPI")
 
 cmake_policy(SET CMP0063 NEW)
 

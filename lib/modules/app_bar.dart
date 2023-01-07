@@ -1,9 +1,9 @@
-import 'package:first_app/api.dart';
-import 'package:first_app/main.dart';
-import 'package:first_app/modules/lessons_list.dart';
+import 'package:ScheduleKPI/api.dart';
+import 'package:ScheduleKPI/main.dart';
+import 'package:ScheduleKPI/modules/lessons_list.dart';
 import 'package:flutter/material.dart';
 
-import 'package:first_app/pages/settings.dart';
+import 'package:ScheduleKPI/pages/settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeAppBar extends StatefulWidget implements PreferredSizeWidget {

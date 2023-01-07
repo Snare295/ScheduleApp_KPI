@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:first_app/globals.dart' as global;
+import 'package:ScheduleKPI/globals.dart' as global;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';

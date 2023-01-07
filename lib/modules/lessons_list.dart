@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:first_app/api.dart';
-import 'package:first_app/main.dart';
-import 'package:first_app/modules/iconsClass/icon_numbers_icons.dart';
+import 'package:ScheduleKPI/api.dart';
+import 'package:ScheduleKPI/main.dart';
+import 'package:ScheduleKPI/modules/iconsClass/icon_numbers_icons.dart';
 import 'package:flutter/material.dart';
 
 const List<String> daysOfWeek = [
