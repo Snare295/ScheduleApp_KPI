@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:first_app/main.dart';
+import 'package:ScheduleKPI/main.dart';
 import 'package:http/http.dart' as http;
 
 class ApiConstants {

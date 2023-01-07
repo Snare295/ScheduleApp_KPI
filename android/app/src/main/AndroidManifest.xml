@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.first_app">
+    package="com.example.ScheduleKPI">
    <application
         android:label="ScheduleKPI"
         android:name="${applicationName}"

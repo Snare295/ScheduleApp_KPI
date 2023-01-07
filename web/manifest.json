@@ -1,6 +1,6 @@
 {
-    "name": "first_app",
-    "short_name": "first_app",
+    "name": "ScheduleKPI",
+    "short_name": "ScheduleKPI",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

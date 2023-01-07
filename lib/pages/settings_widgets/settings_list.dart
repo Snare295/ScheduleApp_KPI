@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:first_app/globals.dart' as global;
+import 'package:ScheduleKPI/globals.dart' as global;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsList extends StatelessWidget {
