@@ -20,14 +20,16 @@ class MyApp extends StatelessWidget {
   static bool isLoadingSchedule = true;
   static String groupName = '';
   static String groupId = '';
-  static DateTime timeInWeek = DateTime.now();
+  static DateTime timeInWeek = timeWeek;
   static bool isFirstWeek = true;
 
   static get timeWeek {
     const int timeEpochOffset =
         946857600000; //2000/01/03 first monday in 2000. miliseconds from epoch
     const int oneWeek = 604800000;
-    int now = DateTime.now().millisecondsSinceEpoch;
+    int now = DateTime.now().toUtc().millisecondsSinceEpoch;
+    //TODO:add switch in settings for disabling winter time offset
+    now = now - Duration(hours: 1).inMilliseconds;
     if (global.offsetByWeek) {
       now = now - timeEpochOffset;
     } else {
@@ -86,7 +88,6 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     getGroupNameData();
     getGroupIdData();
-    MyApp.timeInWeek = MyApp.timeWeek;
     getGroups();
   }
 
