@@ -1,14 +1,9 @@
 name: CI
 
-on:
-  pull_request:
-    branches:
-      - main
-      - master
+on
   push:
     branches:
       - main
-      - master
       
 jobs:
   build:

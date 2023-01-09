@@ -1,8 +1,7 @@
-import 'dart:developer';
-
 import 'package:ScheduleKPI/api.dart';
 import 'package:ScheduleKPI/main.dart';
 import 'package:ScheduleKPI/modules/iconsClass/icon_numbers_icons.dart';
+import 'package:ScheduleKPI/modules/lessons_list_layouts.dart';
 import 'package:flutter/material.dart';
 
 const List<String> daysOfWeek = [
@@ -15,16 +14,42 @@ const List<String> daysOfWeek = [
 ];
 
 class LessonsList extends StatelessWidget {
-  const LessonsList({Key? key}) : super(key: key);
+  LessonsList({Key? key}) : super(key: key);
   static bool isSchedulFirst = true;
+  final int oneColumnLayoutWidth = 600;
+  final int twoColumnLayoutWidth = 1200;
+
+  List<Widget> wListPairsOfWeek = getWListPairsOfWeek();
+
+  static List<Widget> getWListPairsOfWeek() {
+    List<Widget> widgets = [];
+    for (int index = 0; index < daysOfWeek.length; index++) {
+      widgets.add(TileBuilder(index));
+    }
+    return widgets;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: daysOfWeek.length,
-      itemBuilder: (BuildContext context, int index) {
-        return TileBuilder(index);
-      },
+    return ListView(
+      children: [
+        LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constraints) {
+          if (constraints.maxWidth <= oneColumnLayoutWidth) {
+            return Column(
+              children: wListPairsOfWeek,
+            );
+          }
+          if ((constraints.maxWidth > oneColumnLayoutWidth) &
+              (constraints.maxWidth <= twoColumnLayoutWidth)) {
+            return TwoColumnLayout(wListPairsOfWeek);
+          }
+          if (constraints.maxWidth > twoColumnLayoutWidth) {
+            return ThreeColumnLayout(wListPairsOfWeek);
+          }
+          throw 'LessonsList can not find right layout in LayoutBuilder';
+        })
+      ],
     );
   }
 }
@@ -48,41 +73,50 @@ class TileBuilder extends StatelessWidget {
             Radius.circular(20),
           ),
         ),
-        child: Column(
-          children: [
-            Center(
-              child: Text(
-                daysOfWeek[index],
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontSize: 25,
-                ),
-              ),
-            ),
-            //TODO: cringe layout-clipping, needs reworking
-            Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16)),
-              elevation: 12,
-              child: ClipRRect(
-                clipBehavior: Clip.antiAlias,
-                borderRadius: BorderRadius.circular(16),
-                child: Column(
-                  children: makeChildren(
-                      MyApp.scheduleList, LessonsList.isSchedulFirst, index),
-                ),
-              ),
-            )
-          ],
-        ),
+        child: DayBloc(index),
       ),
+    );
+  }
+}
+
+class DayBloc extends StatelessWidget {
+  DayBloc(this.index, {Key? key}) : super(key: key);
+  int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Center(
+          child: Text(
+            daysOfWeek[index],
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimary,
+              fontSize: 25,
+            ),
+          ),
+        ),
+        //TODO: cringe layout-clipping, needs reworking
+        Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          elevation: 12,
+          child: ClipRRect(
+            clipBehavior: Clip.antiAlias,
+            borderRadius: BorderRadius.circular(16),
+            child: Column(
+              children: makeChildren(
+                  MyApp.scheduleList, LessonsList.isSchedulFirst, index),
+            ),
+          ),
+        )
+      ],
     );
   }
 }
 
 makeChildren(Schedule? schedule, bool isScheduleFirst, int day) {
   List<Widget> children = [];
-  inspect(schedule);
   isScheduleFirst
       ? {
           for (Pair pair in schedule!.scheduleFirstWeek[day].pairs)
@@ -179,8 +213,6 @@ bool isPairNow(int day, String pairTimeString) {
   if ((day) != timeInWeek.day) {
     return false;
   }
-  inspect(timeInWeek);
-  inspect(pairTime);
   if (timeInWeek.isAfter(pairTime) &&
       timeInWeek.isBefore(
         pairTime.add(
