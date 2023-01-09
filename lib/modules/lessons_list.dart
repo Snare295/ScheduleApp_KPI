@@ -16,8 +16,8 @@ const List<String> daysOfWeek = [
 class LessonsList extends StatelessWidget {
   LessonsList({Key? key}) : super(key: key);
   static bool isSchedulFirst = true;
-  final int oneColumnLayoutWidth = 600;
-  final int twoColumnLayoutWidth = 1200;
+  final int firstLayoutWidth = 600;
+  final int secondLayoutWidth = 1300;
 
   List<Widget> wListPairsOfWeek = getWListPairsOfWeek();
 
@@ -35,17 +35,17 @@ class LessonsList extends StatelessWidget {
       children: [
         LayoutBuilder(
             builder: (BuildContext context, BoxConstraints constraints) {
-          if (constraints.maxWidth <= oneColumnLayoutWidth) {
+          if (constraints.maxWidth <= firstLayoutWidth) {
             return Column(
               children: wListPairsOfWeek,
             );
           }
-          if ((constraints.maxWidth > oneColumnLayoutWidth) &
-              (constraints.maxWidth <= twoColumnLayoutWidth)) {
+          if ((constraints.maxWidth > firstLayoutWidth) &
+              (constraints.maxWidth <= secondLayoutWidth)) {
             return TwoColumnLayout(wListPairsOfWeek);
           }
-          if (constraints.maxWidth > twoColumnLayoutWidth) {
-            return ThreeColumnLayout(wListPairsOfWeek);
+          if (constraints.maxWidth > secondLayoutWidth) {
+            return OneRowLayout(wListPairsOfWeek);
           }
           throw 'LessonsList can not find right layout in LayoutBuilder';
         })
@@ -64,7 +64,7 @@ class TileBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.fromLTRB(5, 10, 5, 0),
+      margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
       child: Card(
         elevation: 6,
         color: Theme.of(context).cardColor,
